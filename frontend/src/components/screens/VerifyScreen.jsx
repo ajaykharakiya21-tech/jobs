@@ -3,69 +3,12 @@ import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import {
   ShieldCheck,
-  QrCode,
   Info,
   Lock,
   BadgeCheck,
   ArrowRight,
 } from "lucide-react";
 import { toast } from "sonner";
-
-// Generate a stable SVG "QR-like" placeholder pattern
-function QrPlaceholder() {
-  // Deterministic grid pattern
-  const size = 21;
-  const cells = [];
-  for (let r = 0; r < size; r++) {
-    for (let c = 0; c < size; c++) {
-      const fill = ((r * 7 + c * 13 + (r ^ c) * 3) % 5) < 2;
-      cells.push({ r, c, fill });
-    }
-  }
-  const finder = (x, y) => (
-    <g key={`f-${x}-${y}`}>
-      <rect x={x} y={y} width={7} height={7} rx={1.2} fill="#0a2540" />
-      <rect x={x + 1} y={y + 1} width={5} height={5} rx={0.6} fill="#fff" />
-      <rect x={x + 2} y={y + 2} width={3} height={3} rx={0.4} fill="#0a2540" />
-    </g>
-  );
-  return (
-    <svg
-      viewBox={`0 0 ${size} ${size}`}
-      className="w-40 h-40 sm:w-48 sm:h-48"
-      aria-hidden="true"
-    >
-      <rect width={size} height={size} fill="#fff" />
-      {cells.map((c) =>
-        c.fill &&
-        !(c.r < 8 && c.c < 8) &&
-        !(c.r < 8 && c.c > size - 9) &&
-        !(c.r > size - 9 && c.c < 8) ? (
-          <rect
-            key={`${c.r}-${c.c}`}
-            x={c.c}
-            y={c.r}
-            width={1}
-            height={1}
-            fill="#0a2540"
-          />
-        ) : null
-      )}
-      {finder(0, 0)}
-      {finder(size - 7, 0)}
-      {finder(0, size - 7)}
-      {/* Center brand dot */}
-      <rect
-        x={size / 2 - 2}
-        y={size / 2 - 2}
-        width={4}
-        height={4}
-        rx={1}
-        fill="#0055ff"
-      />
-    </svg>
-  );
-}
 
 export default function VerifyScreen({ formData, onSuccess }) {
   const [utr, setUtr] = useState("");
@@ -154,9 +97,18 @@ export default function VerifyScreen({ formData, onSuccess }) {
               <div className="qr-corner tr" />
               <div className="qr-corner bl" />
               <div className="qr-corner br" />
-              <QrPlaceholder />
-              <div className="mt-3 flex items-center gap-1.5 text-[11px] font-semibold text-slate-500">
-                <QrCode size={12} /> upi://jobsforall@icici
+              <img
+                src="/assets/payment-qr.jpg"
+                alt="Scan to pay ₹100 via PhonePe / UPI"
+                className="w-44 h-44 sm:w-52 sm:h-52 rounded-lg object-contain select-none"
+                draggable="false"
+                data-testid="payment-qr-image"
+              />
+              <div className="mt-3 inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-600">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#5F259F]/10 text-[#5F259F] font-bold">
+                  PhonePe
+                </span>
+                · UPI · GPay · Paytm
               </div>
             </div>
 
@@ -166,7 +118,7 @@ export default function VerifyScreen({ formData, onSuccess }) {
               Verification Fee
             </div>
             <div className="text-xs text-slate-500 mt-1">
-              UPI · Google Pay · PhonePe · Paytm
+              After payment, enter the UTR / Transaction ID below
             </div>
           </motion.div>
 
