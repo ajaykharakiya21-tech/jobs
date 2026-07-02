@@ -1,0 +1,83 @@
+{
+  "theme_and_archetype": {
+    "domain": "Job Portal Registration Web App / Premium Fintech Flow",
+    "theme": "Light",
+    "archetype": "4 (Swiss & High-Contrast) heavily modified to an Apple/Stripe Premium Trust aesthetic"
+  },
+  "typography": {
+    "fonts": {
+      "headings": "Cabinet Grotesk, sans-serif",
+      "body": "Plus Jakarta Sans, sans-serif"
+    },
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900",
+      "h2": "text-2xl sm:text-3xl font-bold tracking-tight text-slate-800",
+      "body": "text-base sm:text-lg text-slate-600 leading-relaxed",
+      "labels": "text-xs font-semibold tracking-wider uppercase text-slate-500"
+    }
+  },
+  "colors": {
+    "primary": {
+      "base": "#0055FF",
+      "hover": "#0044CC",
+      "foreground": "#FFFFFF"
+    },
+    "text": {
+      "main": "#0A2540",
+      "muted": "#425466"
+    },
+    "background": {
+      "app": "#F7F9FC",
+      "card": "#FFFFFF",
+      "glass": "rgba(255, 255, 255, 0.7)"
+    },
+    "accents": {
+      "success": "#10B981",
+      "success_glow": "rgba(16, 185, 129, 0.2)",
+      "blue_glow": "rgba(0, 85, 255, 0.2)"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-xl bg-white/70 border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.04)]",
+    "trust_badges": "inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-slate-100 shadow-sm text-sm font-medium text-slate-700 hover:-translate-y-0.5 transition-transform",
+    "focus_glow": "focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all shadow-[0_0_15px_rgba(0,85,255,0.1)]",
+    "button_magnetic": "relative overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_-10px_rgba(0,85,255,0.6)] hover:-translate-y-1 active:translate-y-0"
+  },
+  "layout_and_spacing": {
+    "app_container": "h-screen w-full overflow-hidden bg-slate-50 relative selection:bg-blue-500/30",
+    "step_container": "h-full w-full overflow-y-auto px-4 md:px-8 pt-28 pb-32 max-w-3xl mx-auto flex flex-col",
+    "bento_grid": "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6",
+    "spacing_scale": "Ample iOS-like padding. Use p-6 or p-8 for cards. Tap targets min 48px height."
+  },
+  "motion_and_interactions": {
+    "framer_motion_wrapper": "Use <AnimatePresence mode='wait'> around the step content.",
+    "step_transition": {
+      "initial": { "x": 40, "opacity": 0, "filter": "blur(4px)" },
+      "animate": { "x": 0, "opacity": 1, "filter": "blur(0px)" },
+      "exit": { "x": -40, "opacity": 0, "filter": "blur(4px)" },
+      "transition": { "type": "spring", "stiffness": 300, "damping": 30 }
+    },
+    "micro_interactions": "Hover states on all interactive elements. Radio cards should have a distinct active state with an Emerald border and subtle scale."
+  },
+  "media_and_assets": {
+    "icons": "lucide-react",
+    "image_urls": [
+      {
+        "category": "abstract_background",
+        "url": "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d",
+        "description": "Subtle white wavy texture. Use as an absolute background layer with 10% opacity and mix-blend-multiply to break the digital flatness."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "INSTALLATION: Run `yarn add framer-motion canvas-confetti lucide-react` before starting.",
+    "STRICT APP ARCHITECTURE: The app MUST be a single-page React app mimicking a native mobile wizard. Use a `step` state (1, 2, or 3) to render screens conditionally inside a Framer Motion <AnimatePresence mode='wait'>.",
+    "NO VERTICAL SCROLLING BETWEEN SECTIONS: The main body/wrapper must be strictly `h-screen overflow-hidden`. Each active step component handles its own internal vertical scrolling. It must feel contained like an iOS app.",
+    "HEADER & PROGRESS: Create a globally fixed Header (`z-50`) at the top. It must contain the glowing logo 'JobsForAll Haryana' and a 3-step progress indicator (1. Start -> 2. Apply -> 3. Verify). Add a subtle 'Back' button for steps 2 and 3.",
+    "SCREEN 1 (START) & 3D CSS: Implement a completely CSS-based 3D floating illustration (e.g., a stylized briefcase or ID badge). DO NOT use an image for this. Create a layered CSS graphic using nested divs, `transform-style: preserve-3d`, `transform: rotateX(20deg) rotateY(-20deg)`, layered box-shadows, and a floating keyframe animation. Add glassmorphism trust badges below it and a massive magnetic CTA.",
+    "SCREEN 2 (APPLY): Form fields must feel extremely premium. Use Shadcn components heavily customized to match Stripe's form aesthetic. Use glowing blue borders on focus (`focus-within:ring-2 focus-within:ring-blue-500/50`). Fields: Full Name, Phone, Email, District, Qualification (Select), Target Company (Select), Current Status (Radio Cards with distinct active states), Experience, Skills, LinkedIn. The continue button must show a spinner on click before advancing.",
+    "SCREEN 3 (VERIFY): Payment step. Top section should be a stylized floating white card mimicking a QR scanner but using the Lucide `QrCode` icon (scaled up) as a clean placeholder. Input for UTR transaction ID. A solid Emerald Green 'Verify & Complete Registration' button.",
+    "SUCCESS & GUARANTEE: Clicking 'Verify & Complete' must trigger a full-screen confetti effect using 'canvas-confetti' and transition to a success modal/state. The 30-day refund guarantee info box MUST be present in soft-blue on step 3 to build trust.",
+    "TESTING: Every single interactive element and key informational text MUST have a `data-testid` attribute (e.g., `data-testid=\"btn-start-registration\"`)."
+  ]
+}
