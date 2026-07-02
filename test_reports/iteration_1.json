@@ -1,0 +1,24 @@
+{
+  "summary": "Frontend-only wizard tested end-to-end: Hero -> Register -> Verify -> Success. All required data-testids present. Framer Motion transitions work, form validation blocks empty/invalid data, valid flow completes with confetti canvas and success modal showing applicant name + target company. Back navigation and reset flow both work. Mobile 390x844 renders without horizontal scroll and CTA meets 44px+ tap target (56px height).",
+  "tested_scope": ["frontend", "integration"],
+  "passed": [
+    "Screen 1: brand-title, hero-3d-briefcase, hero-headline, 3 trust badges (10th/12th, Graduates, Diploma), btn-get-started, step-dot-1 all visible",
+    "Get Started transitions to Screen 2 (screen-register visible, btn-header-back appears)",
+    "Screen 2: all 11 form testids present (input-fullName/phone/email/city/industry/experience/skills/linkedin, select-qualification/targetCompany, 3 radio-status-* cards, btn-continue-verification)",
+    "Radio card highlights when selected (class becomes 'radio-card active')",
+    "Empty required-field submit stays on Screen 2 (validation blocks advance)",
+    "Valid submit advances to Screen 3 after ~900ms spinner",
+    "Screen 3: qr-card, input-utr, btn-verify-complete, guarantee-box all visible; guarantee-box mentions selected company (TCS)",
+    "Empty UTR submit shows sonner toast: 'Please enter a valid UTR / Transaction ID (min 6 chars)'",
+    "Valid UTR submit shows success-modal with applicant name (Rohan Kumar) and target company (TCS); 1 canvas element in DOM confirms confetti",
+    "btn-success-close resets flow to Screen 1 (screen-hero visible again)",
+    "btn-header-back on Screen 2 returns to Screen 1",
+    "Mobile 390x844: brand-title visible, no horizontal scroll, CTA button height=56px (>=44px tap target)"
+  ],
+  "failed": [],
+  "action_items": [],
+  "success_rate": {"backend": "N/A (frontend-only)", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "notes": "Empty-submit toast on Screen 2 was not captured by DOM snapshot (likely already dismissed by query time), but form did NOT advance which is the required behavior. UTR empty-submit toast was captured correctly, confirming sonner toast system works. Company/qualification defaults include TCS and Graduate as expected."
+}
